@@ -1,5 +1,5 @@
 ## Computer graphics
-    This is project Computer graphics of our teams
+This is project Computer graphics of our teams
 ### How to run project?
 1. Request Environment
     - node: v16.14.2
