@@ -2,6 +2,8 @@ import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Logo from "../assets/Logo/logo192.png"
+import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader"
+import React, { useState } from 'react';
 
 export default function Header({
     handelClick,
@@ -9,10 +11,14 @@ export default function Header({
     surface,
     light,
     animation,
-    handelSetFile
+    handelSetFile,
+    handelModel
 }) {
+    const loader = new OBJLoader()
+    const [nameModel, setNameModel] = useState("")
     const getFile = () => {
         const input = document.createElement('input');
+
         input.type = 'file';
         input.click();
         input.onchange = (env) => {
@@ -30,6 +36,33 @@ export default function Header({
         }
     }
 
+
+    const loadModel = (name) => {
+        if (name === "Cerberus") {
+            loader.load("/models/Cerberus.obj",
+                (obj) => {
+                    // console.log(obj)
+                    handelModel(obj.children[0].geometry)
+                    handelClick("Geometry", "model")
+                    setNameModel(name)
+                })
+        }
+        else 
+        {
+            if(name === "tree")
+            {
+                loader.load("/models/tree.obj",
+                (obj) => {
+                    console.log(obj)
+                    handelModel(obj.children[0].geometry)
+                    handelClick("Geometry", "model")
+                    setNameModel(name)
+                })
+            }
+        }
+
+    }
+
     return (
         <Navbar collapseOnSelect expand="xl" bg="light" variant="light">
             <Navbar.Brand className="pl-1">
@@ -38,7 +71,7 @@ export default function Header({
             </Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
-                <Nav className="ml-auto" style={{ width: "50%" }}>
+                <Nav className="ml-auto" style={{ width: "60%" }}>
 
                     <NavDropdown title="Geometry" id="collasible-nav-dropdown" className="ml-4">
                         <p style={{ borderBottom: '1px solid black', paddingLeft: '10px' }} >Select: {geometry}</p>
@@ -52,10 +85,15 @@ export default function Header({
                         <NavDropdown.Item onClick={() => { handelClick("Geometry", "teapot") }}>teapot</NavDropdown.Item>
                         <NavDropdown.Item onClick={() => { handelClick("Geometry", "circleGeometry") }}>circleGeometry</NavDropdown.Item>
                         <NavDropdown.Item onClick={() => { handelClick("Geometry", "ringGeometry") }}>ringGeometry</NavDropdown.Item>
-                        <NavDropdown.Item onClick={getFile} >
-                            getImage
-                        </NavDropdown.Item>
+
                     </NavDropdown>
+
+                    <NavDropdown title="LoadModel" id="collasible-nav-dropdown" className="ml-4">
+                        <p style={{ borderBottom: '1px solid black', paddingLeft: '10px' }} >Select: {nameModel}</p>
+                        <NavDropdown.Item onClick={() => { loadModel("Cerberus") }}>Cerberus</NavDropdown.Item>
+                        <NavDropdown.Item onClick={() => { loadModel("tree") }}>Tree</NavDropdown.Item>
+                    </NavDropdown>
+
                     <NavDropdown title="Surface" id="collasible-nav-dropdown" className="ml-4">
                         <p style={{ borderBottom: '1px solid black', paddingLeft: '10px' }} >Select: {surface}</p>
                         <NavDropdown.Item onClick={() => { handelClick("Surface", "point") }}>point</NavDropdown.Item>
@@ -67,6 +105,9 @@ export default function Header({
                         <NavDropdown.Item onClick={() => { handelClick("Surface", "particle") }}>particle</NavDropdown.Item>
                         <NavDropdown.Item onClick={() => { handelClick("Surface", "cement") }}>cement</NavDropdown.Item>
                         <NavDropdown.Item onClick={() => { handelClick("Surface", "doraemon") }}>doraemon</NavDropdown.Item>
+                        <NavDropdown.Item onClick={getFile} >
+                            getImage
+                        </NavDropdown.Item>
                         <NavDropdown.Item onClick={() => { handelClick("Surface", "default") }}>default</NavDropdown.Item>
                     </NavDropdown>
                     <NavDropdown title="Light" id="collasible-nav-dropdown" className="ml-4">

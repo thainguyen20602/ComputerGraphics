@@ -23,7 +23,8 @@ export default class Main extends React.Component {
             light: "remove",
             animation: "none",
             data: initialDatState,
-            imageUrl: "None"
+            imageUrl: "None",
+            model: "none",
         };
 
         this.ref = React.createRef();
@@ -49,12 +50,15 @@ export default class Main extends React.Component {
     handelSetFile = (imageUrl) => {
         this.setState({ imageUrl: imageUrl })
     }
+    handelModel = (model) => {
+        this.setState({ model: model })
+    }
 
     render() {
         return (
             <>
-                <Header handelClick={this.handleClick} geometry={this.state.geometry} surface={this.state.surface} light={this.state.light} animation={this.state.animation} handelSetFile={this.handelSetFile} />
-                <Body geometry={this.state.geometry} imageUrl= {this.state.imageUrl} surface={this.state.surface} light={this.state.light} animation={this.state.animation} data={this.state.data} handleUpdate={this.handleUpdate} />
+                <Header handelClick={this.handleClick} geometry={this.state.geometry} surface={this.state.surface} light={this.state.light} animation={this.state.animation} handelSetFile={this.handelSetFile} handelModel={this.handelModel} />
+                <Body geometry={this.state.geometry} imageUrl= {this.state.imageUrl} surface={this.state.surface} light={this.state.light} animation={this.state.animation} data={this.state.data} handleUpdate={this.handleUpdate} model={this.state.model} />
             </>
         );
     }

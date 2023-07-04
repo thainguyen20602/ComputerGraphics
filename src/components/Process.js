@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import * as THREE from "three";
 
-import TransformControls from "../source/TransformControls.js";
-import { TeapotGeometry } from "../source/TeapotGeometry.js";
-
+// import TransformControls from "../source/TransformControls.js";
+// import { TeapotGeometry } from "../source/TeapotGeometry.js";
+import { TransformControls } from "three/examples/jsm/controls/TransformControls.js"
 import particle from '../assets/textures/lightBlue.jpg'
 import Doraemon from "../assets/textures/Doraemon.jpg"
 import Brich from "../assets/textures/brich.jpg"
 import Cement from "../assets/textures/cement.jpg"
-
+import { TeapotGeometry } from "three/examples/jsm/geometries/TeapotGeometry"
 import {
 	getSphere,
 	getPlane,
@@ -17,11 +17,12 @@ import {
 	getAmbientLight
 } from './misc/utils.js'
 import CustomSinCurve from './misc/CustomSinCurve.js'
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls"
 
 export default class Process extends Component {
 	constructor(props) {
 		super(props);
-		this.OrbitControls = require("three-orbit-controls")(THREE);
+		// this.OrbitControls = require("three-orbit-controls")(THREE);
 		this.start = this.start.bind(this);
 		this.stop = this.stop.bind(this);
 		this.animate = this.animate.bind(this);
@@ -64,7 +65,7 @@ export default class Process extends Component {
 	componentDidMount() {
 		const width = this.mount.clientWidth;
 		const height = this.mount.clientHeight;
-		this.OrbitControls = require("three-orbit-controls")(THREE);
+		// this.OrbitControls = require("three-orbit-controls")(THREE);
 		const scene = new THREE.Scene();
 
 
@@ -116,7 +117,7 @@ export default class Process extends Component {
 			this.orbit.enabled = !event.value;
 		});
 		// ORBIT CONTROL
-		this.orbit = new this.OrbitControls(this.camera, this.renderer.domElement);
+		this.orbit = new OrbitControls(this.camera, this.renderer.domElement);
 		this.camera.position.set(0, 2, 2);
 		this.orbit.update();
 		//EVENT LISTNER TO VIEW MODEL IN DIFFERENT POSITIONS
@@ -197,7 +198,10 @@ export default class Process extends Component {
 			case "ringGeometry":
 				// console.log("this.props.geometry:", this.props.geometry);
 				geometry = new THREE.RingGeometry(0.3, 0.5, 32);
-
+				break
+			case "model":
+				// console.log("Thái")
+				geometry = this.props.model
 				break;
 			default:
 				break;
@@ -237,22 +241,18 @@ export default class Process extends Component {
 				break;
 			case "brich":
 				var texture = new THREE.TextureLoader().load(Brich);
-				this.geometry = new THREE.BoxBufferGeometry(200, 200, 200);
 				material = new THREE.MeshBasicMaterial({ map: texture });
 				break;
 			case "particle":
 				var texture = new THREE.TextureLoader().load(particle);
-				this.geometry = new THREE.BoxBufferGeometry(200, 200, 200);
 				material = new THREE.MeshBasicMaterial({ map: texture });
 				break;
 			case "cement":
 				var texture = new THREE.TextureLoader().load(Cement);
-				this.geometry = new THREE.BoxBufferGeometry(200, 200, 200);
 				material = new THREE.MeshBasicMaterial({ map: texture });
 				break;
 			case "doraemon":
 				var texture = new THREE.TextureLoader().load(Doraemon);
-				this.geometry = new THREE.BoxBufferGeometry(200, 200, 200);
 				material = new THREE.MeshBasicMaterial({ map: texture });
 				break;
 			case "image":
@@ -292,7 +292,7 @@ export default class Process extends Component {
 			case "remove":
 				// geometry = this.props.geometry;
 				this.scene.children.forEach(function (e) {
-					if (e.name == "Light") {
+					if (e.name === "Light") {
 						this.scene.remove(e);
 					}
 				});
@@ -300,12 +300,14 @@ export default class Process extends Component {
 			default:
 				break;
 		}
-		if (this.props.surface == "point") {
+		// if (this.props.geometry !== "model") {
+		if (this.props.surface === "point") {
 			this.cube = new THREE.Points(geometry, material);
 		} else {
 			this.cube = new THREE.Mesh(geometry, material);
 		}
-		if (this.props.light != "remove") {
+		// }
+		if (this.props.light !== "remove") {
 			light.name = "Light";
 			light.position.y = this.props.data.lightPosition;
 		}

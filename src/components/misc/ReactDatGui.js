@@ -1,11 +1,7 @@
 import React, { Component } from "react";
 import DatGui, {
-  DatBoolean,
-  DatButton,
   DatColor,
-  DatFolder,
   DatNumber,
-  DatPresets,
   DatSelect,
   DatString
 } from "@tim-soft/react-dat-gui";
