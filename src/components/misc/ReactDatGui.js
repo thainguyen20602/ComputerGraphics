@@ -47,7 +47,7 @@ class DatGUI extends Component {
           />
           <DatNumber
             path="fov"
-            label="FOV"
+            label="Fov"
             min={0}
             max={200}
             step={2}

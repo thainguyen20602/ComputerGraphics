@@ -94,7 +94,7 @@ export default function Header({
                         <NavDropdown.Item onClick={() => { loadModel("tree") }}>Tree</NavDropdown.Item>
                     </NavDropdown>
 
-                    <NavDropdown title="Surface" id="collasible-nav-dropdown" className="ml-4">
+                    <NavDropdown title="Type" id="collasible-nav-dropdown" className="ml-4">
                         <p style={{ borderBottom: '1px solid black', paddingLeft: '10px' }} >Select: {surface}</p>
                         <NavDropdown.Item onClick={() => { handelClick("Surface", "point") }}>point</NavDropdown.Item>
                         <NavDropdown.Item onClick={() => { handelClick("Surface", "line") }}>line</NavDropdown.Item>
