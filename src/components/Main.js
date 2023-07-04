@@ -12,10 +12,10 @@ export default class Main extends React.Component {
             far: 1000,
             fov: 75,
             near: 1,
-            colorObject: "#0000ff",
+            colorObject: "#ff0000",
             colorLight: "0xffffff",
             lightPosition: 2,
-            objectTransform: "translate"
+            objectTransform: "translate",
         };
         this.state = {
             geometry: "box",
@@ -23,6 +23,7 @@ export default class Main extends React.Component {
             light: "remove",
             animation: "none",
             data: initialDatState,
+            imageUrl: "None"
         };
 
         this.ref = React.createRef();
@@ -33,23 +34,27 @@ export default class Main extends React.Component {
             data: { ...prevState.data, ...newData }
         }));
 
-    handleClick = (type, value) => {
-        if (type === "Geometry")
+    handleClick = async (type, value) => {
+        if (type === "Geometry") {
             this.setState({ geometry: value })
+        }
         else if (type === "Surface")
             this.setState({ surface: value })
         else if (type === "Light")
             this.setState({ light: value })
         else if (type === "Animation")
-            this.setState({ animation: value})
+            this.setState({ animation: value })
 
+    }
+    handelSetFile = (imageUrl) => {
+        this.setState({ imageUrl: imageUrl })
     }
 
     render() {
         return (
             <>
-                <Header handelClick ={this.handleClick} geometry= {this.state.geometry} surface={this.state.surface} light={this.state.light} animation={this.state.animation}/>
-                <Body geometry={this.state.geometry} surface={this.state.surface} light={this.state.light} animation={this.state.animation} data={this.state.data} handleUpdate={this.handleUpdate} />
+                <Header handelClick={this.handleClick} geometry={this.state.geometry} surface={this.state.surface} light={this.state.light} animation={this.state.animation} handelSetFile={this.handelSetFile} />
+                <Body geometry={this.state.geometry} imageUrl= {this.state.imageUrl} surface={this.state.surface} light={this.state.light} animation={this.state.animation} data={this.state.data} handleUpdate={this.handleUpdate} />
             </>
         );
     }

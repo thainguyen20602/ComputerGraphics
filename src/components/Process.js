@@ -15,8 +15,8 @@ import {
 	getDirectionalLight,
 	getSpotLight,
 	getAmbientLight
-} from './misc/utils.jsx'
-import CustomSinCurve from './misc/CustomSinCurve.jsx'
+} from './misc/utils.js'
+import CustomSinCurve from './misc/CustomSinCurve.js'
 
 export default class Process extends Component {
 	constructor(props) {
@@ -196,8 +196,8 @@ export default class Process extends Component {
 				break;
 			case "ringGeometry":
 				// console.log("this.props.geometry:", this.props.geometry);
-				geometry = new THREE.RingGeometry( 0.3, 0.5, 32 ); 
-				
+				geometry = new THREE.RingGeometry(0.3, 0.5, 32);
+
 				break;
 			default:
 				break;
@@ -255,6 +255,14 @@ export default class Process extends Component {
 				this.geometry = new THREE.BoxBufferGeometry(200, 200, 200);
 				material = new THREE.MeshBasicMaterial({ map: texture });
 				break;
+			case "image":
+				var texture = new THREE.TextureLoader().load(this.props.imageUrl);
+				// console.log(this.props.imageUrl)
+				// this.geometry = new THREE.BoxBufferGeometry(200, 200, 200);
+				material = new THREE.MeshBasicMaterial({ map: texture });
+
+				break;
+
 			default:
 				material = new THREE.MeshBasicMaterial({
 					color: this.props.data.colorObject,

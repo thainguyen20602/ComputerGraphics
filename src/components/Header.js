@@ -8,11 +8,30 @@ export default function Header({
     geometry,
     surface,
     light,
-    animation
+    animation,
+    handelSetFile
 }) {
+    const getFile = () => {
+        const input = document.createElement('input');
+        input.type = 'file';
+        input.click();
+        input.onchange = (env) => {
+            const data = env.target.files[0]
+            const render = new FileReader()
+
+            render.onload = () => {
+                const dataUrl = render.result;
+                console.log(dataUrl)
+                handelSetFile(dataUrl)
+                handelClick("Surface", "image")
+
+            }
+            render.readAsDataURL(data);
+        }
+    }
 
     return (
-        <Navbar collapseOnSelect expand="xl" bg="dark" variant="dark">
+        <Navbar collapseOnSelect expand="xl" bg="light" variant="light">
             <Navbar.Brand className="pl-1">
                 <img src={Logo} alt="Logo" width={30} style={{ marginRight: 10 }} />
                 Computer graphics
@@ -22,7 +41,7 @@ export default function Header({
                 <Nav className="ml-auto" style={{ width: "50%" }}>
 
                     <NavDropdown title="Geometry" id="collasible-nav-dropdown" className="ml-4">
-                        <p style={{ borderBottom: '1px solid black', paddingLeft:'10px' }} >Select: {geometry}</p>
+                        <p style={{ borderBottom: '1px solid black', paddingLeft: '10px' }} >Select: {geometry}</p>
                         <NavDropdown.Item onClick={() => { handelClick("Geometry", "box") }}>box</NavDropdown.Item>
                         <NavDropdown.Item onClick={() => { handelClick("Geometry", "sphere") }}>sphere</NavDropdown.Item>
                         <NavDropdown.Item onClick={() => { handelClick("Geometry", "cone") }}>cone</NavDropdown.Item>
@@ -33,10 +52,12 @@ export default function Header({
                         <NavDropdown.Item onClick={() => { handelClick("Geometry", "teapot") }}>teapot</NavDropdown.Item>
                         <NavDropdown.Item onClick={() => { handelClick("Geometry", "circleGeometry") }}>circleGeometry</NavDropdown.Item>
                         <NavDropdown.Item onClick={() => { handelClick("Geometry", "ringGeometry") }}>ringGeometry</NavDropdown.Item>
-
+                        <NavDropdown.Item onClick={getFile} >
+                            getImage
+                        </NavDropdown.Item>
                     </NavDropdown>
                     <NavDropdown title="Surface" id="collasible-nav-dropdown" className="ml-4">
-                        <p style={{ borderBottom: '1px solid black', paddingLeft:'10px' }} >Select: {surface}</p>
+                        <p style={{ borderBottom: '1px solid black', paddingLeft: '10px' }} >Select: {surface}</p>
                         <NavDropdown.Item onClick={() => { handelClick("Surface", "point") }}>point</NavDropdown.Item>
                         <NavDropdown.Item onClick={() => { handelClick("Surface", "line") }}>line</NavDropdown.Item>
                         <NavDropdown.Item onClick={() => { handelClick("Surface", "phong") }}>phong</NavDropdown.Item>
@@ -49,7 +70,7 @@ export default function Header({
                         <NavDropdown.Item onClick={() => { handelClick("Surface", "default") }}>default</NavDropdown.Item>
                     </NavDropdown>
                     <NavDropdown title="Light" id="collasible-nav-dropdown" className="ml-4">
-                        <p style={{ borderBottom: '1px solid black', paddingLeft:'10px' }} >Select: {light}</p>
+                        <p style={{ borderBottom: '1px solid black', paddingLeft: '10px' }} >Select: {light}</p>
                         <NavDropdown.Item onClick={() => { handelClick("Light", "point") }}>point</NavDropdown.Item>
                         <NavDropdown.Item onClick={() => { handelClick("Light", "ambient") }}>ambient</NavDropdown.Item>
                         <NavDropdown.Item onClick={() => { handelClick("Light", "spot") }}>spot</NavDropdown.Item>
@@ -57,7 +78,7 @@ export default function Header({
                         <NavDropdown.Item onClick={() => { handelClick("Light", "remove") }}>remove</NavDropdown.Item>
                     </NavDropdown>
                     <NavDropdown title="Animation" id="collasible-nav-dropdown" className="ml-4">
-                        <p style={{ borderBottom: '1px solid black', paddingLeft:'10px' }} >Select: {animation}</p>
+                        <p style={{ borderBottom: '1px solid black', paddingLeft: '10px' }} >Select: {animation}</p>
                         <NavDropdown.Item onClick={() => { handelClick("Animation", "animation: Ox") }}>animation: Ox</NavDropdown.Item>
                         <NavDropdown.Item onClick={() => { handelClick("Animation", "animation: Oy") }}>animation: Oy</NavDropdown.Item>
                         <NavDropdown.Item onClick={() => { handelClick("Animation", "animation: Oz") }}>animation: Oz</NavDropdown.Item>
