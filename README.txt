@@ -10,6 +10,7 @@
 
     Sau khi máy tính đã cài đăt nodejs, npm, yarn đúng như phiên bản trên. Thì chúng ta đã có thể chạy project( Có thể bị lỗi thư viện nếu như cài đặt không đúng version của các yêu cầu trên)
 2. Bắt đầu chạy
+
     Đầu tiên, chúng ta cần phải cài đặt các thư viện đã sử dụng trong project, bằng lệnh sau:
     ```
     cd ComputerGraphics
