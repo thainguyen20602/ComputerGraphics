@@ -72,7 +72,7 @@ class DatGUI extends Component {
           <DatSelect
             label="Object Transform"
             path="objectTransform"
-            options={["Move", "rotate", "scale"]}
+            options={["move", "rotate", "scale"]}
           />
         </DatGui>
       </main>
