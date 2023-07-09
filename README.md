@@ -1,20 +1,22 @@
 ## Computer graphics
-This is project Computer graphics of our teams
+    Các thành viên của nhóm:
+        - Nguyễn Khắc Thái - 20521888
+
 ### How to run project?
-1. Request Environment
-    - node: v16.14.2
+1. Yêu cầu về môi trường
+    - nodejs: v16.14.2
     - npm: 9.5.0
     - yarn: v1.22.19
 
-    After completing the above requirements. You can run our project
-2. Run
-    
-    The first, you must install package needed. Follow command with yarn (recommend):
+    Sau khi máy tính đã cài đăt nodejs, npm, yarn đúng như phiên bản trên. Thì chúng ta đã có thể chạy project( Có thể bị lỗi thư viện nếu như cài đặt không đúng version của các yêu cầu trên)
+2. Bắt đầu chạy
+    Đầu tiên, chúng ta cần phải cài đặt các thư viện đã sử dụng trong project, bằng lệnh sau:
     ```
+    cd ComputerGraphics
     yarn install
     ```
-    To run project, you follow command with yarn(recommend):
+    Sau khi đã cài đặt thư viện, thì chúng ta đã có thể chạy project bằng lệnh sau đây:
     ```
     yarn start
     ``` 
-    Then, you listen link: [localhost](http://localhost:3000/)
+    Sau đó mở trình duyệt với đường link sau: http://localhost:3000/
